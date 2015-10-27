@@ -2,6 +2,8 @@
 
 FontTextView extends from TextView, you can change the font by specify the font path relative to `assets` directory.
 
+![screenshot](./screenshot.png)
+
 ### Integration（集成）
 
 This library has been published on [jcenter][1], you can use it like below:
