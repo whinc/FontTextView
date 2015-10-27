@@ -4,9 +4,15 @@ FontTextView extends from TextView, you can change the font by specify the font 
 
 ### Integration（集成）
 
-The widget has been published on jcenter, you can use it by add one line below in your module build.gradle.
+This library has been published on [jcenter][1], you can use it like below:
 
 ```
+repositories {
+    maven {
+        url 'https://dl.bintray.com/whinc/maven'
+    }
+}
+
 dependencies {
     ...
     compile 'com.whinc.widget.fontview:fontview:0.1.0'
@@ -60,3 +66,5 @@ furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
+
+[1]:https://bintray.com/whinc/maven/fontview/view
