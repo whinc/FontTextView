@@ -7,12 +7,6 @@ FontTextView extends from TextView, you can change the font by specify the font 
 This library has been published on [jcenter][1], you can use it like below:
 
 ```
-repositories {
-    maven {
-        url 'https://dl.bintray.com/whinc/maven'
-    }
-}
-
 dependencies {
     ...
     compile 'com.whinc.widget.fontview:fontview:0.1.0'
