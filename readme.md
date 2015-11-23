@@ -1,53 +1,55 @@
 ### FontTextView
 
-FontTextView extends from TextView, you can change the font by specify the font fontPath relative to `assets` directory.
+This library include a custom view `FontTextView` and a Util class `FontUtils`.You can replace font with `FontTextView` in layout file, or use interface provided by `FontUtils` class in java code.
 
-![screenshot](./screenshot.png)
+![screenshot](./screenshot.jpg)
 
 ### Integration（集成）
 
-This library has been published on [jcenter][1], you can use it like below:
+Add code below to your build.gradle:
 
-```
-dependencies {
-    ...
-    compile 'com.whinc.widget.fontview:fontview:0.1.0'
-}
-```
+    repositories {
+        // ...
+        maven { url "https://jitpack.io" }
+    }
+
+    dependencies {
+        ...
+        compile 'com.whinc.widget.fontview:fontview:0.1.0'
+    }
 
 ### How to use （如何使用）
 
-Use in xml layout file:
+#### Way 1
 
-```
-<com.whinc.widget.fontview.FontTextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/hello_world"
-    app:fontPath="fonts/SnellRoundhand.ttf"
-    />
-```
+Use `FontTextView` in xml layout file:
 
-Use in java code:
+    <com.whinc.widget.fontview.FontTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world"
+        app:font_path="fonts/my_font.ttf"
+        />
 
-```
-FontTextView fontTextView = new FontTextView(this);
-fontTextView.setPath("fonts/SnellRoundhand.ttf");
-fontTextView.setText("Hello world!");
-```
+Use `FontTextView` in java code:
 
-### How to customise （自定义）
+    FontTextView fontTextView = new FontTextView(this);
+    fontTextView.setPath("fonts/my_font.ttf");
+    fontTextView.setText("Hello world!");
 
-First, make sure you have add below namespace to the layout root tag.
+#### Way 2
 
-```
-xmlns:app="http://schemas.android.com/apk/res-auto"
-```
+Use `FontUtils` to replace default font of specified view and it's children:
 
-Here is all the attributes you can use to customise FontTextView
+    View root = findViewById(R.id.layout2);
+    FontUtils.getInstance().replaceFont(root, "fonts/my_font.ttf");
 
-* app:fontPath [String default:null] --> font file data fontPath in `assets` directory
 
+#### Way 3
+
+This method will replace system default font which will affect all widget.
+
+    FontUtils.getInstance().replaceSystemDefaultFont(context, "fonts/my_font.ttf");
 
 ### The MIT License (MIT)
 

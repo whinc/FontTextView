@@ -43,14 +43,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.create_button:
                 ViewGroup parent = (ViewGroup) findViewById(R.id.container_layout);
-//                createFontTextView(parent, "fonts/my_font.ttf");
-                createTextView(parent, "fonts/my_font.ttf");
+                createFontTextView(parent, "fonts/my_font.ttf");
+//                createTextView(parent, "fonts/my_font.ttf");
                 break;
             case R.id.replace_font_btn:
                 FontUtils.getInstance().replaceSystemDefaultFont(this, "fonts/my_font.ttf");
+                recreate();
                 break;
             case R.id.restore_font_btn:
                 FontUtils.getInstance().replaceSystemDefaultFont(FontUtils.DEFAULT);
+                recreate();
                 break;
             default:
                 break;
