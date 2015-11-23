@@ -13,7 +13,7 @@
 
     <TextView
         android:id="@+id/normal_textView"
-        android:text="@string/hello_world"
+        android:text="Method 1: replace font with FontTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -23,30 +23,29 @@
         android:orientation="horizontal"
         >
 
-        <com.whinc.widget.fontview.FontTextView
-            android:id="@+id/font1_textView"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="FontTextView"
-            android:layout_below="@id/normal_textView"
-            app:path="fonts/SnellRoundhand.ttf"
-            />
-
         <Button
             android:id="@+id/set_null_path_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Set Null Path"
+            android:text="Clear font"
             android:textAllCaps="false"
             />
         <Button
             android:id="@+id/set_path_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Set Path"
+            android:text="Replace font"
             android:textAllCaps="false"
             />
+        <com.whinc.widget.fontview.FontTextView
+            android:id="@+id/font1_textView"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="FontTextView"
+            app:font_path="fonts/my_font.ttf"
+            />
+
     </LinearLayout>
 
     <LinearLayout
@@ -55,13 +54,54 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-
         <Button
             android:id="@+id/create_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="create FontTextView"
             android:textAllCaps="false"
+            />
+    </LinearLayout>
+    <TextView
+        android:text="Method 2: replace font cursively"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EditText"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RadioButton"
+                />
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="TextView"
+            android:gravity="center_vertical"
             />
     </LinearLayout>
 </LinearLayout>

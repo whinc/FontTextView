@@ -18,8 +18,7 @@ import java.util.Map;
 public class FontTextView extends TextView {
     private static final String TAG = FontTextView.class.getSimpleName();
     /** The file name of the font data in the assets directory*/
-    private String mPath;
-    private Context mContext;
+    private String mFontPath;
     private static Map<String, SoftReference<Typeface>> sCache = new HashMap<>();
 
     public FontTextView(Context context) {
@@ -35,63 +34,69 @@ public class FontTextView extends TextView {
         init(context, attrs);
     }
 
-    public String getPath() {
-        return mPath;
+    public String getFontPath() {
+        return mFontPath;
     }
 
     /**
-     * <p>Set font file path</p>
-     * @param path The file name of the font data in the assets directory
+     * <p>Set font file fontPath</p>
+     * @param fontPath The file name of the font data in the assets directory
      */
-    public void setPath(String path) {
-        if (TextUtils.equals(mPath, path)) {
+    public void setFontPath(String fontPath) {
+        if (TextUtils.equals(mFontPath, fontPath)) {
             return;
         }
 
-        mPath = path;
+        mFontPath = fontPath;
 
         // get font style
         int style = Typeface.NORMAL;
         if (getTypeface() != null) {
             style = getTypeface().getStyle();
         }
-        // set typeface
-        if (TextUtils.isEmpty(path)) {
+        // replace typeface
+        if (TextUtils.isEmpty(fontPath)) {
             setTypeface(Typeface.DEFAULT, style);
         } else {
-            setTypeface(getCustomTypeface(mContext, path), style);
+            setTypeface(createTypeface(fontPath), style);
         }
     }
 
     private void init(Context context, AttributeSet attrs) {
-        mContext = context;
         if (attrs == null) {
             return;
         }
 
+        // get font path from XML layout
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.FontTextView);
-        mPath = typedArray.getString(R.styleable.FontTextView_path);
+        mFontPath = typedArray.getString(R.styleable.FontTextView_font_path);
         typedArray.recycle();
 
-        if (mPath == null) {
+        if (mFontPath == null) {
             return;
         }
 
-        Log.i(TAG, "font file name:" + mPath);
+        // replace default typeface
         int style = Typeface.NORMAL;
         if (getTypeface() != null) {
             style = getTypeface().getStyle();
         }
-        setTypeface(getCustomTypeface(context, mPath), style);
+        setTypeface(createTypeface(mFontPath), style);
     }
 
-    private Typeface getCustomTypeface(Context c, String fontFileName) {
-        SoftReference<Typeface> typefaceRef = sCache.get(fontFileName);
+    /**
+     * <p>Create a Typeface instance with specified font file</p>
+     * @param fontPath font file path relative to 'assets' directory.
+     * @return Return created typeface instance.
+     */
+    private Typeface createTypeface(String fontPath) {
+        SoftReference<Typeface> typefaceRef = sCache.get(fontPath);
         Typeface typeface = null;
         if (typefaceRef == null || (typeface = typefaceRef.get()) == null) {
-            typeface = Typeface.createFromAsset(c.getAssets(), fontFileName);
+            typeface = Typeface.createFromAsset(getContext().getAssets(), fontPath);
             typefaceRef = new SoftReference<>(typeface);
-            sCache.put(fontFileName, typefaceRef);
+            sCache.put(fontPath, typefaceRef);
+            Log.i(TAG, "Hit cache:" + fontPath);
         }
         return typeface;
     }

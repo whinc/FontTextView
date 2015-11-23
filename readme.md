@@ -1,6 +1,6 @@
 ### FontTextView
 
-FontTextView extends from TextView, you can change the font by specify the font path relative to `assets` directory.
+FontTextView extends from TextView, you can change the font by specify the font fontPath relative to `assets` directory.
 
 ![screenshot](./screenshot.png)
 
@@ -24,7 +24,7 @@ Use in xml layout file:
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/hello_world"
-    app:path="fonts/SnellRoundhand.ttf"
+    app:fontPath="fonts/SnellRoundhand.ttf"
     />
 ```
 
@@ -46,7 +46,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 
 Here is all the attributes you can use to customise FontTextView
 
-* app:path [String default:null] --> font file data path in `assets` directory
+* app:fontPath [String default:null] --> font file data fontPath in `assets` directory
 
 
 ### The MIT License (MIT)

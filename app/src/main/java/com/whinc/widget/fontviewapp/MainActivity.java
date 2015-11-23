@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.whinc.widget.fontview.FontTextView;
+import com.whinc.widget.fontview.FontUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -24,20 +24,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.set_path_button).setOnClickListener(this);
         findViewById(R.id.create_button).setOnClickListener(this);
         mFontTextView = (FontTextView)findViewById(R.id.font1_textView);
+
+        View root = findViewById(R.id.layout2);
+        FontUtils.getInstance().replaceFont(root, "fonts/my_font.ttf");
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.set_null_path_button:
-                mFontTextView.setPath(null);
+                mFontTextView.setFontPath(null);
                 break;
             case R.id.set_path_button:
-                mFontTextView.setPath("fonts/SnellRoundhand.ttf");
+                mFontTextView.setFontPath("fonts/my_font.ttf");
                 break;
             case R.id.create_button:
                 ViewGroup parent = (ViewGroup) findViewById(R.id.container_layout);
-                createFontTextView(parent, "fonts/SnellRoundhand.ttf");
+                createFontTextView(parent, "fonts/my_font.ttf");
                 break;
             default:
                 break;
@@ -46,11 +49,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void createFontTextView(ViewGroup parent, String path) {
         FontTextView fontTextView = new FontTextView(this);
-        fontTextView.setPath(path);
+        fontTextView.setFontPath(path);
         fontTextView.setText("Hello world!");
         fontTextView.setTextColor(Color.RED);
         fontTextView.setGravity(Gravity.CENTER_VERTICAL);
-        parent.addView(fontTextView, 0, new LinearLayout.LayoutParams(
+        parent.addView(fontTextView, new LinearLayout.LayoutParams(
                 0, ViewGroup.LayoutParams.MATCH_PARENT, 1
         ));
     }
