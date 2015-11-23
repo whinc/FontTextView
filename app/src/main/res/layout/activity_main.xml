@@ -73,7 +73,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="this is a TextView!"
+            android:gravity="center_vertical"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,6 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Button"
+                android:textAllCaps="false"
                 />
 
             <EditText
@@ -97,11 +103,31 @@
                 android:text="RadioButton"
                 />
         </LinearLayout>
-        <TextView
+    </LinearLayout>
+
+    <TextView
+        android:text="Method 3: replace default font of Typeface"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/replace_font_btn"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="TextView"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:text="Replace"
+            android:textAllCaps="false"
+            />
+        <Button
+            android:id="@+id/restore_font_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restore"
+            android:textAllCaps="false"
             />
     </LinearLayout>
 </LinearLayout>

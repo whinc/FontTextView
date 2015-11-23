@@ -43,10 +43,6 @@ public class FontTextView extends TextView {
      * @param fontPath The file name of the font data in the assets directory
      */
     public void setFontPath(String fontPath) {
-        if (TextUtils.equals(mFontPath, fontPath)) {
-            return;
-        }
-
         mFontPath = fontPath;
 
         // get font style
@@ -96,6 +92,8 @@ public class FontTextView extends TextView {
             typeface = Typeface.createFromAsset(getContext().getAssets(), fontPath);
             typefaceRef = new SoftReference<>(typeface);
             sCache.put(fontPath, typefaceRef);
+            Log.i(TAG, "Create typeface:" + fontPath);
+        } else {
             Log.i(TAG, "Hit cache:" + fontPath);
         }
         return typeface;
