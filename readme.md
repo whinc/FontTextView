@@ -15,7 +15,7 @@ Add code below to your build.gradle:
 
     dependencies {
         ...
-        compile 'com.github.whinc:FontTextView:1.0.3'
+        compile 'com.github.whinc:FontTextView:1.0.4'
     }
 
 ### How to use （如何使用）
