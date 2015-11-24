@@ -1,6 +1,8 @@
 package com.whinc.widget.fontviewapp;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -14,6 +16,7 @@ import com.whinc.widget.fontview.FontUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    public static final String TAG = MainActivity.class.getSimpleName();
     private FontTextView mFontTextView;
 
     @Override
@@ -21,15 +24,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /* Method 1: replace the font with FontTextView */
+
         findViewById(R.id.set_null_path_button).setOnClickListener(this);
         findViewById(R.id.set_path_button).setOnClickListener(this);
         findViewById(R.id.create_button).setOnClickListener(this);
-        findViewById(R.id.replace_font_btn).setOnClickListener(this);
-        findViewById(R.id.restore_font_btn).setOnClickListener(this);
+        findViewById(R.id.replace_font_from_asset_btn).setOnClickListener(this);
+        findViewById(R.id.replace_font_from_file_btn).setOnClickListener(this);
         mFontTextView = (FontTextView)findViewById(R.id.font1_textView);
 
-        View root = findViewById(R.id.layout2);
-        FontUtils.getInstance().replaceFont(root, "fonts/my_font.ttf");
+        /* Method 2: replace the font of view and it's children recursively */
+
+        // read font data from asset
+        String fontPath = "fonts/my_font.ttf";
+        FontUtils.getInstance().replaceFontFromAsset(
+                findViewById(R.id.layout2), fontPath);
+        FontUtils.getInstance().replaceFontFromAsset(
+                findViewById(R.id.layout3), fontPath, Typeface.BOLD);
+
+        // read font data from file
+//        String fontPath = Environment.getExternalStorageDirectory() + "/whinc/my_font.ttf";
+//        Log.i(TAG, "font path:" + fontPath);
+//        FontUtils.getInstance().replaceFontFromFile(
+//                findViewById(R.id.layout2), fontPath);
+//        FontUtils.getInstance().replaceFontFromFile(
+//                findViewById(R.id.layout3), fontPath, Typeface.BOLD);
     }
 
     @Override
@@ -46,12 +65,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 createFontTextView(parent, "fonts/my_font.ttf");
 //                createTextView(parent, "fonts/my_font.ttf");
                 break;
-            case R.id.replace_font_btn:
-                FontUtils.getInstance().replaceSystemDefaultFont(this, "fonts/my_font.ttf");
+            case R.id.replace_font_from_asset_btn:
+                /* Method 3: replace system default font */
+                FontUtils.getInstance().replaceSystemDefaultFontFromAsset(this, "fonts/my_font.ttf");
                 recreate();
                 break;
-            case R.id.restore_font_btn:
-                FontUtils.getInstance().replaceSystemDefaultFont(FontUtils.DEFAULT);
+            case R.id.replace_font_from_file_btn:
+                String fontPath = Environment.getExternalStorageDirectory() + "/whinc/my_font.ttf";
+                FontUtils.getInstance().replaceSystemDefaultFontFromFile(this, fontPath);
                 recreate();
                 break;
             default:

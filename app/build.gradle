@@ -26,7 +26,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.github.whinc:FontTextView:1.0.3'
+//    compile 'com.github.whinc:FontTextView:1.0.3'
 //    compile 'com.github.whinc:FontTextView:-SNAPSHOT'
-//    compile project(':fontview')
+    compile project(':fontview')
 }

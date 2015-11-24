@@ -76,7 +76,45 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:text="this is a TextView!"
+            android:text="Keep previous style"
+            android:gravity="center_vertical"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                android:textAllCaps="false"
+                />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EditText"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RadioButton"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="apply specified style"
             android:gravity="center_vertical"
             />
         <LinearLayout
@@ -113,20 +151,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         >
         <Button
-            android:id="@+id/replace_font_btn"
+            android:id="@+id/replace_font_from_asset_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Replace"
+            android:text="Replace font from assets"
             android:textAllCaps="false"
             />
         <Button
-            android:id="@+id/restore_font_btn"
+            android:id="@+id/replace_font_from_file_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Restore"
+            android:text="Replace font from file"
             android:textAllCaps="false"
             />
     </LinearLayout>

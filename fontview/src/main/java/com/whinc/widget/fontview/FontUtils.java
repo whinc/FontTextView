@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -19,7 +18,7 @@ import java.util.Map;
  * <p>FontUtils can replace all the font under specified view.</p>
  */
 public class FontUtils {
-    public static final String TAG = FontUtils.class.getSimpleName();
+    private static final String TAG = FontUtils.class.getSimpleName();
     private Map<String, SoftReference<Typeface>> mCache = new HashMap<>();
     private static FontUtils sSingleton = null;
 
@@ -45,17 +44,50 @@ public class FontUtils {
      * @param root The root view.
      * @param fontPath font file path relative to 'assets' directory.
      */
-    public void replaceFont(@NonNull View root, @NonNull String fontPath) {
-        replaceFont(root, createTypeface(root.getContext(), fontPath));
+    public void replaceFontFromAsset(@NonNull View root, @NonNull String fontPath) {
+        replaceFont(root, createTypefaceFromAsset(root.getContext(), fontPath));
     }
 
-    public void replaceFont(@NonNull View root, @NonNull Typeface typeface) {
+    /**
+     * <p>Replace the font of specified view and it's children</p>
+     * @param root The root view.
+     * @param fontPath font file path relative to 'assets' directory.
+     * @param style One of {@link Typeface#NORMAL}, {@link Typeface#BOLD}, {@link Typeface#ITALIC}, {@link Typeface#BOLD_ITALIC}
+     */
+    public void replaceFontFromAsset(@NonNull View root, @NonNull String fontPath, int style) {
+        replaceFont(root, createTypefaceFromAsset(root.getContext(), fontPath), style);
+    }
+
+    /**
+     * <p>Replace the font of specified view and it's children</p>
+     * @param root The root view.
+     * @param fontPath The full path to the font data.
+     */
+    public void replaceFontFromFile(@NonNull View root, @NonNull String fontPath) {
+        replaceFont(root, createTypefaceFromFile(fontPath));
+    }
+
+    /**
+     * <p>Replace the font of specified view and it's children</p>
+     * @param root The root view.
+     * @param fontPath The full path to the font data.
+     * @param style One of {@link Typeface#NORMAL}, {@link Typeface#BOLD}, {@link Typeface#ITALIC}, {@link Typeface#BOLD_ITALIC}
+     */
+    public void replaceFontFromFile(@NonNull View root, @NonNull String fontPath, int style) {
+        replaceFont(root, createTypefaceFromFile(fontPath), style);
+    }
+
+    /**
+     * <p>Replace the font of specified view and it's children with specified typeface</p>
+     */
+    private void replaceFont(@NonNull View root, @NonNull Typeface typeface) {
         if (root == null || typeface == null) {
             return;
         }
 
         if (root instanceof TextView) { // If view is TextView or it's subclass, replace it's font
             TextView textView = (TextView)root;
+            // Extract previous style of TextView
             int style = Typeface.NORMAL;
             if (textView.getTypeface() != null) {
                 style = textView.getTypeface().getStyle();
@@ -70,20 +102,51 @@ public class FontUtils {
     }
 
     /**
+     * <p>Replace the font of specified view and it's children with specified typeface and text style</p>
+     * @param style One of {@link Typeface#NORMAL}, {@link Typeface#BOLD}, {@link Typeface#ITALIC}, {@link Typeface#BOLD_ITALIC}
+     */
+    private void replaceFont(@NonNull View root, @NonNull Typeface typeface, int style) {
+        if (root == null || typeface == null) {
+            return;
+        }
+        if (style < 0 || style > 3) {
+            style = Typeface.NORMAL;
+        }
+
+        if (root instanceof TextView) { // If view is TextView or it's subclass, replace it's font
+            TextView textView = (TextView)root;
+            textView.setTypeface(typeface, style);
+        } else if (root instanceof ViewGroup) { // If view is ViewGroup, apply this method on it's child views
+            ViewGroup viewGroup = (ViewGroup) root;
+            for (int i = 0; i < viewGroup.getChildCount(); ++i) {
+                replaceFont(viewGroup.getChildAt(i), typeface, style);
+            }
+        } // else return
+    }
+
+    /**
      * <p>Create a Typeface instance with specified font file</p>
      * @param fontPath font file path relative to 'assets' directory.
      * @return Return created typeface instance.
      */
-    private Typeface createTypeface(Context context, String fontPath) {
+    private Typeface createTypefaceFromAsset(Context context, String fontPath) {
         SoftReference<Typeface> typefaceRef = mCache.get(fontPath);
         Typeface typeface = null;
         if (typefaceRef == null || (typeface = typefaceRef.get()) == null) {
             typeface = Typeface.createFromAsset(context.getAssets(), fontPath);
             typefaceRef = new SoftReference<>(typeface);
             mCache.put(fontPath, typefaceRef);
-            Log.i(TAG, "Create typeface:" + fontPath);
-        } else {
-            Log.i(TAG, "Hit cache:" + fontPath);
+        }
+        return typeface;
+    }
+
+    private Typeface createTypefaceFromFile(String fontPath) {
+        SoftReference<Typeface> typefaceRef = mCache.get(fontPath);
+        Typeface typeface = null;
+        if (typefaceRef == null || (typeface = typefaceRef.get()) == null) {
+            typeface = Typeface.createFromFile(fontPath);
+            typefaceRef = new SoftReference<>(typeface);
+            mCache.put(fontPath, typefaceRef);
         }
         return typeface;
     }
@@ -96,8 +159,20 @@ public class FontUtils {
      * @param context {@link Context Context}
      * @param fontPath font file path relative to 'assets' directory.
      */
-    public void replaceSystemDefaultFont(@NonNull Context context, @NonNull String fontPath) {
-        replaceSystemDefaultFont(createTypeface(context, fontPath));
+    public void replaceSystemDefaultFontFromAsset(@NonNull Context context, @NonNull String fontPath) {
+        replaceSystemDefaultFont(createTypefaceFromAsset(context, fontPath));
+    }
+
+    /**
+     * <p>Replace system default font. <b>Note:</b>you should also add code below to your app theme in styles.xml. </p>
+     * {@code <item name="android:typeface">monospace</item>}
+     * <p>The best place to call this method is {@link Application#onCreate()}, it will affect
+     * whole app font.If you call this method after view is visible, you need to invalid the view to make it effective.</p>
+     * @param context {@link Context Context}
+     * @param fontPath The full path to the font data.
+     */
+    public void replaceSystemDefaultFontFromFile(@NonNull Context context, @NonNull String fontPath) {
+        replaceSystemDefaultFont(createTypefaceFromFile(fontPath));
     }
 
     /**
@@ -106,20 +181,16 @@ public class FontUtils {
      * <p>The best place to call this method is {@link Application#onCreate()}, it will affect
      * whole app font.If you call this method after view is visible, you need to invalid the view to make it effective.</p>
      */
-    public void replaceSystemDefaultFont(@NonNull Typeface typeface) {
-        replaceTypefaceField("MONOSPACE", typeface);
+    private void replaceSystemDefaultFont(@NonNull Typeface typeface) {
+        modifyObjectField(null, "MONOSPACE", typeface);
     }
 
-    /**
-     * <p>Replace field in class Typeface with reflection.</p>
-     * @param fieldName Field name in Typeface.
-     * @param value New field value
-     */
-    private void replaceTypefaceField(String fieldName, Object value) {
+    private void modifyObjectField(Object obj, String fieldName, Object value) {
         try {
             Field defaultField = Typeface.class.getDeclaredField(fieldName);
             defaultField.setAccessible(true);
-            defaultField.set(null, value);
+            defaultField.set(obj, value);
+
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
