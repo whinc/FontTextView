@@ -42,14 +42,21 @@ Use `FontTextView` in java code:
 Use `FontUtils` to replace default font of specified view and it's children:
 
     View root = findViewById(R.id.layout2);
-    FontUtils.getInstance().replaceFont(root, "fonts/my_font.ttf");
+    FontUtils.getInstance().replaceFontFromAsset(root, "fonts/my_font.ttf");
 
 
 #### Way 3
 
 This method will replace system default font which will affect all widget.
 
-    FontUtils.getInstance().replaceSystemDefaultFont(context, "fonts/my_font.ttf");
+    FontUtils.getInstance().replaceSystemDefaultFontFromAsset(context, "fonts/my_font.ttf");
+
+You should set the app default typeface to 'monospace' to make it work:
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:typeface">monospace</item>
+    </style>
 
 ### The MIT License (MIT)
 
