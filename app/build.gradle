@@ -19,10 +19,15 @@ android {
     }
 }
 
- repositories {
-     jcenter()
-     maven { url "https://jitpack.io" }
- }
+// Disable cache
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+repositories {
+    jcenter()
+    maven { url "https://jitpack.io" }
+}
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.1.0'
