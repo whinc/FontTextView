@@ -63,7 +63,7 @@
             />
     </LinearLayout>
     <TextView
-        android:text="Method 2: replace font cursively"
+        android:text="Method 2: replace font recursively"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
