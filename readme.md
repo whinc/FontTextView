@@ -34,7 +34,7 @@ Use `FontTextView` in xml layout file:
 Use `FontTextView` in java code:
 
     FontTextView fontTextView = new FontTextView(this);
-    fontTextView.setPath("fonts/my_font.ttf");
+    fontTextView.setFontPath("fonts/my_font.ttf");
     fontTextView.setText("Hello world!");
 
 #### Way 2
@@ -47,7 +47,8 @@ Use `FontUtils` to replace default font of specified view and it's children:
 
 #### Way 3
 
-This method will replace system default font which will affect all widget.
+This method will replace system default font which will affect all text font:
+.
 
     FontUtils.getInstance().replaceSystemDefaultFontFromAsset(context, "fonts/my_font.ttf");
 
