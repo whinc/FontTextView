@@ -1,84 +1,28 @@
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:id="@+id/normal_textView"
-        android:text="Method 1: replace font with FontTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    android:fillViewport="true"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-
-        <Button
-            android:id="@+id/set_null_path_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Clear font"
-            android:textAllCaps="false"
-            />
-        <Button
-            android:id="@+id/set_path_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Replace font"
-            android:textAllCaps="false"
-            />
-        <com.whinc.widget.fontview.FontTextView
-            android:id="@+id/font1_textView"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="FontTextView"
-            app:font_path="fonts/my_font.ttf"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/container_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:id="@+id/create_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="create FontTextView"
-            android:textAllCaps="false"
-            />
-    </LinearLayout>
-    <TextView
-        android:text="Method 2: replace font recursively"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <LinearLayout
-        android:id="@+id/layout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:orientation="vertical"
-        >
+        tools:context=".MainActivity">
+
         <TextView
+            android:id="@+id/normal_textView"
+            android:text="Method 1: replace font with FontTextView"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="Keep previous style"
-            android:gravity="center_vertical"
-            />
+            android:layout_height="wrap_content"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,86 +30,188 @@
             >
 
             <Button
+                android:id="@+id/set_null_path_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button"
+                android:text="Clear font"
                 android:textAllCaps="false"
                 />
 
-            <EditText
+            <Button
+                android:id="@+id/set_path_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EditText"
+                android:text="Replace font"
+                android:textAllCaps="false"
                 />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="RadioButton"
-                />
-        </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="apply specified style"
-            android:gravity="center_vertical"
-            />
+            <com.whinc.widget.fontview.FontTextView
+                android:id="@+id/font1_textView"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="FontTextView"
+                app:font_path="fonts/my_font.ttf"
+                />
+
+        </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/container_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
 
             <Button
+                android:id="@+id/create_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button"
+                android:text="create FontTextView"
+                android:textAllCaps="false"
+                />
+        </LinearLayout>
+
+        <com.whinc.widget.fontview.FontTextLayout
+            android:id="@+id/font_text_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            app:ftl_font_path="fonts/my_font.ttf"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FontTextLayout"
+                android:textAllCaps="false"
+                android:layout_centerVertical="true"
+                />
+            <Button
+                android:id="@+id/add_view_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add View"
+                android:textAllCaps="false"
+                android:layout_alignParentRight="true"
+                />
+        </com.whinc.widget.fontview.FontTextLayout>
+
+        <TextView
+            android:text="Method 2: replace font recursively"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/layout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Keep previous style"
+                android:gravity="center_vertical"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Button"
+                    android:textAllCaps="false"
+                    />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="EditText"
+                    />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RadioButton"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="apply specified style"
+                android:gravity="center_vertical"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Button"
+                    android:textAllCaps="false"
+                    />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="EditText"
+                    />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RadioButton"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:text="Method 3: replace default font of Typeface"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <Button
+                android:id="@+id/replace_font_from_asset_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Replace font from assets"
                 android:textAllCaps="false"
                 />
 
-            <EditText
+            <Button
+                android:id="@+id/replace_font_from_file_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EditText"
-                />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="RadioButton"
+                android:text="Replace font from file"
+                android:textAllCaps="false"
                 />
         </LinearLayout>
     </LinearLayout>
+</ScrollView>
 
-    <TextView
-        android:text="Method 3: replace default font of Typeface"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-        <Button
-            android:id="@+id/replace_font_from_asset_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Replace font from assets"
-            android:textAllCaps="false"
-            />
-        <Button
-            android:id="@+id/replace_font_from_file_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Replace font from file"
-            android:textAllCaps="false"
-            />
-    </LinearLayout>
-</LinearLayout>

@@ -2,13 +2,15 @@ package com.whinc.widget.fontviewapp;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.whinc.widget.fontview.FontTextView;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.create_button).setOnClickListener(this);
         findViewById(R.id.replace_font_from_asset_btn).setOnClickListener(this);
         findViewById(R.id.replace_font_from_file_btn).setOnClickListener(this);
+        findViewById(R.id.add_view_btn).setOnClickListener(this);
         mFontTextView = (FontTextView)findViewById(R.id.font1_textView);
 
         /* Method 2: replace the font of view and it's children recursively */
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mFontTextView.setFontPath("fonts/my_font.ttf");
                 break;
             case R.id.create_button:
+                v.setEnabled(false);    // can click only once
                 ViewGroup parent = (ViewGroup) findViewById(R.id.container_layout);
                 createFontTextView(parent, "fonts/my_font.ttf");
 //                createTextView(parent, "fonts/my_font.ttf");
@@ -74,6 +78,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String fontPath = Environment.getExternalStorageDirectory() + "/whinc/my_font.ttf";
                 FontUtils.getInstance().replaceSystemDefaultFontFromFile(this, fontPath);
                 recreate();
+                break;
+            case R.id.add_view_btn:
+                v.setEnabled(false);    // can click only once
+                Button button = new Button(this, null, R.attr.buttonStyle);
+                button.setText("Button");
+                RelativeLayout layout = (RelativeLayout) findViewById(R.id.font_text_layout);
+                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                );
+                lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+                layout.addView(button, lp);
                 break;
             default:
                 break;

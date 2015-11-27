@@ -3,4 +3,7 @@
     <declare-styleable name="FontTextView">
         <attr name="font_path" format="string"/>
     </declare-styleable>
+    <declare-styleable name="FontTextLayout">
+        <attr name="ftl_font_path" format="string"/>
+    </declare-styleable>
 </resources>
