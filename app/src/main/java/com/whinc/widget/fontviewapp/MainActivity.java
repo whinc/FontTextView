@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.whinc.widget.fontview.FontTextView;
 import com.whinc.widget.fontview.FontUtils;
@@ -28,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         /* Method 1: replace the font with FontTextView */
 
-        findViewById(R.id.set_null_path_button).setOnClickListener(this);
         findViewById(R.id.set_path_button).setOnClickListener(this);
         findViewById(R.id.create_button).setOnClickListener(this);
         findViewById(R.id.replace_font_from_asset_btn).setOnClickListener(this);
@@ -57,9 +57,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.set_null_path_button:
-                mFontTextView.setFontPath(null);
-                break;
             case R.id.set_path_button:
                 mFontTextView.setFontPath("fonts/my_font.ttf");
                 break;
@@ -75,9 +72,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 recreate();
                 break;
             case R.id.replace_font_from_file_btn:
-                String fontPath = Environment.getExternalStorageDirectory() + "/whinc/my_font.ttf";
-                FontUtils.getInstance().replaceSystemDefaultFontFromFile(this, fontPath);
-                recreate();
+                if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
+                    String fontPath = Environment.getExternalStorageDirectory() + "/whinc/my_font.ttf";
+                    FontUtils.getInstance().replaceSystemDefaultFontFromFile(this, fontPath);
+                    recreate();
+                } else {
+                    Toast.makeText(this, "External storage is not accessible!", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.add_view_btn:
                 v.setEnabled(false);    // can click only once
