@@ -31,7 +31,6 @@ repositories {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.1.0'
-//    compile 'com.github.whinc:FontTextView:1.0.4'
 //    compile 'com.github.whinc:FontTextView:-SNAPSHOT'
     compile project(':fontview')
 }

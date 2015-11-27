@@ -1,6 +1,6 @@
 ### FontTextView
 
-This library include a custom view `FontTextView` and a Util class `FontUtils`.You can replace font with `FontTextView` in layout file, or use interface provided by `FontUtils` class in java code.
+This library include custom view `FontTextView` and `FontTextLayout` and a Util class `FontUtils`.You can replace font with the custom view in layout file, or use interface provided by `FontUtils` class in java code.
 
 ![screenshot](./screenshot.jpg)
 
@@ -15,7 +15,7 @@ Add code below to your build.gradle:
 
     dependencies {
         ...
-        compile 'com.github.whinc:FontTextView:1.0.4'
+        compile 'com.github.whinc:FontTextView:1.1.0'
     }
 
 ### How to use （如何使用）
@@ -36,6 +36,19 @@ Use `FontTextView` in java code:
     FontTextView fontTextView = new FontTextView(this);
     fontTextView.setFontPath("fonts/my_font.ttf");
     fontTextView.setText("Hello world!");
+
+Use `FontTextLayout` to wrap your views in xml layout file:
+
+    <com.whinc.widget.fontview.FontTextLayout
+        android:id="@+id/font_text_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        app:ftl_font_path="fonts/my_font.ttf"
+        >
+        <!-- your views that want to change font -->
+    </com.whinc.widget.fontview.FontTextLayout>
 
 #### Way 2
 
